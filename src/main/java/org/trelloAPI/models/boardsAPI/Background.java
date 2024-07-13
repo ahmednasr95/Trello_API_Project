@@ -3,6 +3,8 @@ package org.trelloAPI.models.boardsAPI;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
+import static io.restassured.RestAssured.given;
+
 public class Background {
     private final RequestSpecification requestSpecification;
     private final String boardID;
@@ -12,19 +14,17 @@ public class Background {
         this.boardID = boardID;
     }
     public void changeColor(boardBackgroundColor color){
-        requestSpecification
+        given().spec(requestSpecification)
                 .pathParam("id",boardID)
                 .queryParam("prefs/background",color)
-                .contentType(ContentType.JSON)
                 .put("/boards/{id}")
                 .then().statusCode(200);
     }
     public String getBackground(){
-        return requestSpecification
-                .body("")
+        return given().spec(requestSpecification)
                 .pathParam("id",boardID)
                 .get("/boards/{id}")
                 .then().statusCode(200)
-                .extract().body().jsonPath().getString("prefs.background");
+                .extract().jsonPath().getString("prefs.background");
     }
 }

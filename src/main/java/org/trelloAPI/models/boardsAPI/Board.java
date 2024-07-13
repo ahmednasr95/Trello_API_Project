@@ -3,6 +3,8 @@ package org.trelloAPI.models.boardsAPI;
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
 
+import static io.restassured.RestAssured.given;
+
 public class Board {
     @Getter
     private final String ID;
@@ -33,16 +35,14 @@ public class Board {
         greenLabel.name = boardData.getLabelNames().getGreenLabelName();
     }
     public getBoardData getInfo(){
-        return requestSpecification
-                .body("")
+        return given().spec(requestSpecification)
                 .pathParam("id", ID)
                 .get("boards/{id}")
                 .then().statusCode(200).extract().as(getBoardData.class);
     }
 
     public void delete(){
-        requestSpecification
-                .body("")
+        given().spec(requestSpecification)
                 .pathParam("id",ID)
                 .delete("boards/{id}")
                 .then().statusCode(200);

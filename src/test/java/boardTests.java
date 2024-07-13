@@ -34,19 +34,20 @@ public class boardTests extends APIManager {
         trelloBoard.redLabel.changeName("Blocked");
         trelloBoard.background.changeColor(boardBackgroundColor.BLUE);
         getBoardData boardData = trelloBoard.getInfo();
-        Assert.assertEquals(boardBackgroundColor.BLUE, boardData.getBoardPrefs().getBoardBackground());
+        Assert.assertEquals(boardBackgroundColor.BLUE.toString(), boardData.getBoardPrefs().getBoardBackground());
         trelloBoard.delete();
     }
-
     @Test
     public void listCRUD(){
         trelloBoard = createNewBoard(boardRequestData);
         toTestList = createNewList("To-Test",trelloBoard.getID());
         toTestList.changeName("Testing");
+        Assert.assertEquals(toTestList.getName(),"Testing");
         toTestList.archive();
+        Assert.assertEquals(true,toTestList.getIsArchived());
         getListData listData = toTestList.getInfo();
-        Assert.assertEquals(true,listData.getIsArchived());
-        toTestList.delete();
+        Assert.assertEquals(trelloBoard.getID(),listData.getParentBoardID());
+        trelloBoard.delete();
     }
 /*    @Test(priority = 0)
     public void createNewBoard(){

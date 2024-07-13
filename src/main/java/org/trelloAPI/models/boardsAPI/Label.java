@@ -1,9 +1,12 @@
 package org.trelloAPI.models.boardsAPI;
 
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
 import lombok.Setter;
+
+import static io.restassured.RestAssured.given;
 
 
 public class Label {
@@ -19,12 +22,11 @@ public class Label {
         this.color = color;
     }
     public void changeName(String newName){
-        name = newName;
-        requestSpecification
+        Response resp = given().spec(requestSpecification)
                 .pathParam("id",boardID)
-                .queryParam(STR."labelNames/\{color}",name)
-                .contentType(ContentType.JSON)
-                .put("/boards/{id}")
-                .then().statusCode(200);
+                .queryParam(STR."labelNames/\{color}",newName)
+                .put("/boards/{id}");
+        this.name = resp.then().statusCode(200).extract().jsonPath().getString("name");
+
     }
 }
