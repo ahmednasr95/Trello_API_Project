@@ -39,7 +39,7 @@ public class BoardsManager {
                 .body(STR."""
                         {
                             "name":"\{cardName}",
-                            "idBoard":"\{parentListID}"
+                            "idList":"\{parentListID}"
                         }
                         """)
                 .contentType(ContentType.JSON)

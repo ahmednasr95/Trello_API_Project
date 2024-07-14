@@ -1,9 +1,11 @@
 package org.trelloAPI.models.cardsAPI;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
 import org.trelloAPI.models.listsAPI.getListData;
+
+import static io.restassured.RestAssured.given;
 
 public class Card {
     @Getter
@@ -27,5 +29,26 @@ public class Card {
         this.membersID = cardData.getMembersID();
         this.name = cardData.getName();
         this.requestSpecification = reqSpec;
+    }
+    public getCardData getInfo(){
+        return given().spec(requestSpecification)
+                .pathParam("id",ID)
+                .get("cards/{id}")
+                .then().statusCode(200).extract().as(getCardData.class);
+    }
+    public void changeName(String name){
+        Response resp = given().log().all().spec(requestSpecification)
+                .pathParam("id",ID)
+                .queryParam("name",name)
+                .put("cards/{id}");
+        this.name = resp.then().statusCode(200).extract().jsonPath().getString("name");
+    }
+
+    public void archive(){
+        Response resp = given().spec(requestSpecification)
+                .pathParam("id", ID)
+                .queryParam("closed", true)
+                .put("cards/{id}");
+        this.isArchived = resp.then().statusCode(200).extract().jsonPath().getBoolean("closed");
     }
 }
