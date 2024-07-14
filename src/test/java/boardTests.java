@@ -1,10 +1,6 @@
-import io.restassured.response.Response;
 
 import org.testng.Assert;
-import org.trelloAPI.models.boardsAPI.Board;
-import org.trelloAPI.models.boardsAPI.boardBackgroundColor;
-import org.trelloAPI.models.boardsAPI.createBoardData;
-import org.trelloAPI.models.boardsAPI.getBoardData;
+import org.trelloAPI.models.boardsAPI.*;
 import org.testng.annotations.Test;
 import org.trelloAPI.models.listsAPI.List;
 import org.trelloAPI.models.listsAPI.getListData;
@@ -21,7 +17,6 @@ public class boardTests extends APIManager {
     static getBoardData createBoardResponseData;
     createBoardData boardRequestData = readJsonFromFile("src/main/resources/Data/boardSpecs.json"
             , createBoardData.class);
-    Response resp;
     Board trelloBoard;
     List toTestList;
     public boardTests() throws IOException {
@@ -31,11 +26,21 @@ public class boardTests extends APIManager {
         trelloBoard = createNewBoard(boardRequestData);
         Assert.assertEquals(trelloBoard.background.getBackground(),boardRequestData.getBoardBackground());
         trelloBoard.greenLabel.changeName("Done");
+        Assert.assertEquals(trelloBoard.greenLabel.getName(),"Done");
         trelloBoard.redLabel.changeName("Blocked");
+        Assert.assertEquals(trelloBoard.redLabel.getName(),"Blocked");
         trelloBoard.background.changeColor(boardBackgroundColor.BLUE);
-        getBoardData boardData = trelloBoard.getInfo();
-        Assert.assertEquals(boardBackgroundColor.BLUE.toString(), boardData.getBoardPrefs().getBoardBackground());
+        Assert.assertEquals(boardBackgroundColor.BLUE.toString(), trelloBoard.background.getBackground());
+        //getBoardData boardData = trelloBoard.getInfo();
         trelloBoard.delete();
+    }
+
+    @Test
+    public void boardMembership(){
+        trelloBoard = createNewBoard(boardRequestData);
+        Assert.assertEquals(trelloBoard.getName(),boardRequestData.getBoardName());
+        trelloBoard.addMember(config.getProperty("member1ID"), memberType.ADMIN);
+        //trelloBoard.updateMemberType();
     }
     @Test
     public void listCRUD(){

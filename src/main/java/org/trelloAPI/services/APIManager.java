@@ -12,12 +12,12 @@ import static org.trelloAPI.utils.PROPERTIESReader.getConfigs;
 public class APIManager {
 
     public static RequestSpecification userReqSpecs;
-
+    public Properties config;
     @BeforeMethod
     public void extractConfigData() {
         try
         {
-            Properties config = getConfigs("src/main/java/Config.properties");
+            config = getConfigs("src/main/java/Config.properties");
             userReqSpecs = RestAssured.given()
                     .baseUri(config.getProperty("baseURL"))
                     .basePath(config.getProperty("basePath"))

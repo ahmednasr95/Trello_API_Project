@@ -18,4 +18,6 @@ public class getBoardData {
     private labelNames labelNames;
     private String memberships;
     private String powerUps;
+    @JsonProperty("message")
+    private String errorMessage;
 }
