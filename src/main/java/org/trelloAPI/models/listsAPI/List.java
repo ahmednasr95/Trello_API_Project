@@ -3,6 +3,7 @@ package org.trelloAPI.models.listsAPI;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
+import org.trelloAPI.models.listsAPI.POJO.getListData;
 
 import static io.restassured.RestAssured.given;
 
@@ -31,7 +32,7 @@ public class List {
                 .then().statusCode(200).extract().as(getListData.class);
     }
     public void changeName(String name){
-        Response resp = given().log().all().spec(requestSpecification)
+        Response resp = given().spec(requestSpecification)
                 .pathParam("id",ID)
                 .queryParam("name",name)
                 .put("lists/{id}");

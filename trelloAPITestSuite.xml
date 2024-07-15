@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="trelloAPITestSuite">
+    <test name="trelloAPITestSuite" preserve-order="true">
+        <classes>
+            <class name="boardTests"/>
+            <class name="listTests"/>
+            <class name="cardTests"/>
+            <class name="negativeTests"/>
+            <class name="integrationFlowTests"/>
+        </classes>
+    </test>
+</suite>

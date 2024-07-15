@@ -1,11 +1,9 @@
 package org.trelloAPI.models.boardsAPI;
 
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
 import lombok.Setter;
-import org.trelloAPI.models.statusCode;
 
 import static io.restassured.RestAssured.given;
 
@@ -27,6 +25,6 @@ public class Label {
                 .pathParam("id",boardID)
                 .queryParam(STR."labelNames/\{color}",newName)
                 .put("/boards/{id}");
-        this.name = resp.then().statusCode(200).extract().jsonPath().getString("name");
+        this.name = resp.then().statusCode(200).extract().jsonPath().getString(STR."labelNames.\{color}");
     }
 }

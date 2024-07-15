@@ -1,7 +1,7 @@
 package org.trelloAPI.models.boardsAPI;
 
-import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import org.trelloAPI.models.Enums.boardBackgroundColor;
 
 import static io.restassured.RestAssured.given;
 

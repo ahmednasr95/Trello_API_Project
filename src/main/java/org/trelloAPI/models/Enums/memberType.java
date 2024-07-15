@@ -1,4 +1,4 @@
-package org.trelloAPI.models.boardsAPI;
+package org.trelloAPI.models.Enums;
 
 public enum memberType {
     ADMIN("admin"),

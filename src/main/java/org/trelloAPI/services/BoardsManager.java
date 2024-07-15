@@ -3,12 +3,12 @@ package org.trelloAPI.services;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.trelloAPI.models.boardsAPI.Board;
-import org.trelloAPI.models.boardsAPI.createBoardData;
-import org.trelloAPI.models.boardsAPI.getBoardData;
+import org.trelloAPI.models.boardsAPI.POJO.createBoardData;
+import org.trelloAPI.models.boardsAPI.POJO.getBoardData;
 import org.trelloAPI.models.cardsAPI.Card;
-import org.trelloAPI.models.cardsAPI.getCardData;
+import org.trelloAPI.models.cardsAPI.POJO.getCardData;
 import org.trelloAPI.models.listsAPI.List;
-import org.trelloAPI.models.listsAPI.getListData;
+import org.trelloAPI.models.listsAPI.POJO.getListData;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.patch;

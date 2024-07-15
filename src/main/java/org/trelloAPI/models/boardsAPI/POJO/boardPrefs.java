@@ -1,4 +1,4 @@
-package org.trelloAPI.models.boardsAPI;
+package org.trelloAPI.models.boardsAPI.POJO;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

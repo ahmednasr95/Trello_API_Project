@@ -1,4 +1,4 @@
-package org.trelloAPI.models;
+package org.trelloAPI.models.Enums;
 
 public enum statusCode {
     OK("200"),

@@ -3,7 +3,7 @@ package org.trelloAPI.models.cardsAPI;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
-import org.trelloAPI.models.listsAPI.getListData;
+import org.trelloAPI.models.cardsAPI.POJO.getCardData;
 
 import static io.restassured.RestAssured.given;
 
@@ -50,5 +50,13 @@ public class Card {
                 .queryParam("closed", true)
                 .put("cards/{id}");
         this.isArchived = resp.then().statusCode(200).extract().jsonPath().getBoolean("closed");
+    }
+
+    public void moveToList(String newListID){
+        Response resp = given().spec(requestSpecification)
+                .pathParam("id", ID)
+                .queryParam("idList", newListID)
+                .put("cards/{id}");
+        this.parentListID = resp.then().statusCode(200).extract().jsonPath().getString("idList");
     }
 }

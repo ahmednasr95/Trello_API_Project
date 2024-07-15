@@ -2,7 +2,7 @@ package org.trelloAPI.models.boardsAPI;
 
 import io.restassured.specification.RequestSpecification;
 import lombok.Getter;
-import org.trelloAPI.models.statusCode;
+import org.trelloAPI.models.boardsAPI.POJO.getBoardData;
 
 import static io.restassured.RestAssured.given;
 
@@ -11,10 +11,6 @@ public class Board {
     private final String ID;
     @Getter
     private final String name;
-    @Getter
-    private final String boardCreatorID;
-    @Getter
-    private final String memberships;
     @Getter
     private final String powerUps;
     public Background background;
@@ -25,8 +21,6 @@ public class Board {
         this.requestSpecification = reqSpec;
         this.ID = boardData.getBoardID();
         this.name = boardData.getBoardName();
-        this.boardCreatorID = boardData.getBoardCreatorID();
-        this.memberships = boardData.getMemberships();
         this.powerUps = boardData.getPowerUps();
         background = new Background(reqSpec, this.ID);
         background.background = boardData.getBoardPrefs().getBoardBackground();
@@ -47,27 +41,5 @@ public class Board {
                 .pathParam("id",ID)
                 .delete("boards/{id}")
                 .then().statusCode(200);
-    }
-
-    public void addMember(String memberID, memberType type){
-        given().spec(requestSpecification)
-                .pathParam("id", ID)
-                .pathParam("idMmeber", memberID)
-                .queryParam("type", type)
-                .put("boards/{id}/members/{idMemeber}")
-                .then().statusCode(200);
-    }
-
-    public void updateMemberType(String memberID, memberType newType){
-        given().spec(requestSpecification)
-                .pathParam("id", ID)
-                .pathParam("idMmeber", memberID)
-                .queryParam("type", newType)
-                .put("boards/{id}/memberships/{idMemeber}")
-                .then().statusCode(200);
-    }
-
-    public void deleteMember(String memberID){
-        
     }
 }
