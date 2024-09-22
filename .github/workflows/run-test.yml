@@ -1,0 +1,14 @@
+name: run tests of some feature
+
+on:
+  push:
+    branches:
+      "feature/*"
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4.1.7
+      - name: run test
+        run: mvn test
